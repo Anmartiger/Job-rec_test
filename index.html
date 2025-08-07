@@ -602,9 +602,12 @@ body::before {
                     <button onclick="restartTest()" class="btn-secondary font-bold py-4 px-8 rounded-xl text-lg">
                         إعادة الاختبار <i class="fas fa-redo ml-2"></i>
                     </button>
-                    <button class="bg-white border border-gray-200 font-bold py-4 px-8 rounded-xl text-lg shadow-sm hover:bg-gray-50 transition">
-                        مشاركة النتائج <i class="fas fa-share-alt ml-2"></i>
+                    <!-- After -->
+                    <button onclick="shareResults()" 
+                            class="bg-white border border-gray-200 font-bold py-4 px-8 rounded-xl text-lg shadow-sm hover:bg-gray-50 transition">
+                      مشاركة النتائج <i class="fas fa-share-alt ml-2"></i>
                     </button>
+
                 </div>
             </div>
             
@@ -1039,6 +1042,26 @@ function showMoreInfo() {
 function closeMoreInfo() {
   document.getElementById('info-modal').classList.add('hidden');
 }
+
+function shareResults() {
+  const shareData = {
+    title: 'اختبار Smart-Track للتوجيه المهني',
+    text: 'تحقق من اختبار Smart-Track لتحديد مسارك المهني الأمثل!',
+    url: window.location.href
+  };
+
+  if (navigator.share) {
+    navigator.share(shareData)
+      .catch(err => console.error('Share failed:', err));
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(shareData.url)
+      .then(() => alert('تم نسخ رابط الاختبار إلى الحافظة.'))
+      .catch(err => console.error('Copy failed:', err));
+  } else {
+    prompt('انسخ هذا الرابط لمشاركته:', shareData.url);
+  }
+}
+        
 
         // Test Functions
         function updateQuestion() {
