@@ -1200,15 +1200,15 @@ function showResults() {
   showScreen('results');
 }
 
-    function restartTest() {
-      // Reset state
-      state.currentQuestion = 0;
-      state.answers = new Array(state.questions.length).fill(null);
-      state.scores = {};
-      // Show first question again
-      updateQuestion();
-      showScreen('test');
-    }
+function restartTest() {
+    // Reset state
+    state.currentQuestion = 0;
+    state.answers = new Array(state.questions.length).fill(null);
+    state.scores = {};
+    // Show first question again
+    updateQuestion();
+    showScreen('test');
+}
         
   function downloadResults() {
     const { jsPDF } = window.jspdf;
