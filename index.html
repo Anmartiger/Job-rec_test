@@ -1107,14 +1107,15 @@ body::before {
         }
 
         function showResults() {
-            // Calculate job matches based on category scores
+    // Calculate job matches based on category scores
             const jobMatches = state.jobs.map(job => {
-                let score = 0;
+                let rawScore = 0;
                 job.category.split(',').forEach(cat => {
-                    score += (state.scores[cat.trim()] || 0) * 5; // Multiply by 5 for percentage
+                    rawScore += (state.scores[cat.trim()] || 0) * 5; // Multiply by 5 per match
                 });
+        // Cap at 100%
                 const score = Math.min(rawScore, 100);
-                return {...job, score};
+                return { ...job, score };
             }).sort((a, b) => b.score - a.score);
 
             // Get top 3 matches
